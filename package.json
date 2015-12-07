@@ -1,0 +1,37 @@
+{
+  "name": "Cuterest",
+  "version": "1.0.1",
+  "description": "This application allows you to add cute animals images",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pytong/cuterest"
+  },
+  "homepage": "https://cuterest.herokuapp.com",
+  "bugs": "https://github.com/pytong/cuterest/issues",
+  "keywords": [
+    "MongoDB",
+    "Mongoose",
+    "full stack",
+    "Express",
+    "Node",
+    "javascript",
+    "cuterest"
+  ],
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Puiyee Tong",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.3.0",
+    "dotenv": "^1.2.0",
+    "express": "^4.13.3",
+    "express-session": "^1.11.3",
+    "mongoose": "^4.2.3",
+    "passport": "^0.3.0",
+    "passport-local": "^1.0.0",
+    "passport-twitter": "^1.0.3",
+    "session-file-store": "0.0.22"
+  }
+}
