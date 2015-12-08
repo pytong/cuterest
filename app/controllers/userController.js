@@ -1,49 +1,49 @@
 "use strict";
 
-(function(app) {
-    app.controller("UserController", ["$scope", "UserService", function($scope, UserService) {
+((app) => {
+    app.controller("UserController", ["$scope", "UserService", ($scope, UserService) => {
 
-        $scope.signin = function() {
+        $scope.signin = () => {
             let username = $scope.user.email,
                 password = $scope.user.password;
             UserService.signin(username, password)
                 .get(
-                    function(res) { //success
+                    (res) => { //success
                         window.location.href = "#/";
                     },
-                    function(err) { //error
+                    (err) => { //error
                         $scope.error = "Incorrect email or password";
                     }
                 );
         }
 
-        $scope.signup = function() {
+        $scope.signup = () => {
             let name = $scope.user.name,
                 username = $scope.user.email,
                 password = $scope.user.password;
 
             UserService.emailExists(username)
                 .get(
-                    function(res) { // success
+                    (res) => { // success
                         if(res.exists === true) {
                             $scope.error = "Email already exists";
                         } else {
                             UserService.signup(name, username, password)
                                 .save(
-                                    function(res) { //success
+                                    (res) => { //success
                                         if(res.success === true) {
                                             window.location.href = "#/";
                                         } else {
                                             $scope.error = res.message;
                                         }
                                     },
-                                    function(err) { //error
+                                    (err) => { //error
                                         $scope.error = "Failed to register.";
                                     }
                                 );
                         }
                     },
-                    function(err) { //error
+                    (err) => { //error
                         $scope.error = "Failed to register.";
                     }
                 );

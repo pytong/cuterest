@@ -1,9 +1,9 @@
 "use strict";
 
-(function(app) {
-    app.controller("SettingsController", ["$scope", "UserService", function($scope, UserService) {
+((app) => {
+    app.controller("SettingsController", ["$scope", "UserService", ($scope, UserService) => {
 
-        UserService.profile().get(function(res) {
+        UserService.profile().get((res) => {
             if(res.success === true) {
                 $scope.profile = res.profile;
             } else {
@@ -11,21 +11,21 @@
             }
         });
 
-        $scope.updateProfile = function() {
+        $scope.updateProfile = () => {
             let name = $scope.user.name,
                 city = $scope.user.city,
                 state = $scope.user.state;
 
             UserService.profile(name, city, state)
                 .save(
-                    function(res) { //success
+                    (res) => { //success
                         if(res.success === true) {
                             window.location.href = "#/";
                         } else {
                             $scope.error = res.message;
                         }
                     },
-                    function(err) { //err
+                    (err) => { //err
                         $scope.error = "Failed to update profile.";
                     }
                 );

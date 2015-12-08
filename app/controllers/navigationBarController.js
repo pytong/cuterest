@@ -1,12 +1,12 @@
-(function(app) {
-    app.controller("NavigationBarController", ["$scope", "$location", "UserService", function($scope, $location, UserService) {
+((app) => {
+    app.controller("NavigationBarController", ["$scope", "$location", "UserService", ($scope, $location, UserService) => {
 
         $scope.showSignInLink = false;
         $scope.showRegisterLink = false;
         $scope.showLogoutLink = false;
         $scope.showSettingsLink = false;
 
-        UserService.loginStatus().get(function(res) {
+        UserService.loginStatus().get((res) => {
             if(res.status === true) {
                 $scope.showLogoutLink = true;
                 $scope.showSignInLink = false;
@@ -24,8 +24,8 @@
             }
         });
 
-        $scope.logout = function() {
-            UserService.logout().save(function(res) {
+        $scope.logout = () => {
+            UserService.logout().save((res) => {
                 if(res.success === true) {
                     window.location.href = "#/signin";
                 }

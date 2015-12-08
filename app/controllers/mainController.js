@@ -1,24 +1,30 @@
 "use strict";
 
-(function(app) {
-    app.controller("MainController", ["$scope", "$uibModal", "UserService", function($scope, $uibModal, UserService) {
+((app) => {
+    app.controller("MainController", ["$scope", "$uibModal", "UserService", "ImageService", ($scope, $uibModal, UserService, ImageService) => {
         $scope.errorMessage = "";
 
-        // UserService.loginStatus().get(function(res) {
-        //     $scope.isLoggedIn = res.status;
-        // });
-
-        $scope.openAddPicModal = function() {
+        $scope.openAddPicModal = () => {
             $uibModal.open({
                 templateUrl: "/views/addPicModal.html",
                 controller: "AddPicModalController",
                 scope: $scope
             })
-            .result.then(function(data) {
-                // close
-                console.log(data);
-            }, function(data) {
+            .result.then((url) => {
+                // submit
+                let encodedUrl = encodeURIComponent(url);
+                ImageService.images()
+                    .save({url: encodedUrl}, (res) => {
+                        $(".url-field").val("");
+                        if(res.success === false) {
+                            $scope.errorMessage = res.result;
+                        } else {
+                            console.log("Saved " + encodedUrl);
+                        }
+                    });
+            }, (data) => {
                 // dismissed
+                $(".url-field").val("");
             });
         }
 

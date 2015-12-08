@@ -28,7 +28,7 @@ app.use('/', express.static('app'));
 // }));
 
 app.use(session({
-    store: new FileStore({logFn: function(){}}),
+    store: new FileStore({logFn: () => {}}),
     secret: 'cutepanda'
 }));
 
@@ -38,6 +38,6 @@ app.use(passport.session());
 routes(app, passport);
 
 var port = process.env.PORT || 8080;
-app.listen(port,  function () {
+app.listen(port, () => {
 	console.log('Node.js listening on port ' + port + '...');
 });

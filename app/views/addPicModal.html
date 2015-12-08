@@ -9,7 +9,7 @@
 
     <form novalidate name="form" class="text-center" method="post">
         <div>
-            <input type="text" class="form-control text-center" placeholder="URL" ng-model="pic.url" ng-change="showPicPreview(pic.url)">
+            <input type="text" class="form-control text-center url-field" placeholder="URL" ng-model="pic.url" ng-change="showPicPreview(pic.url)">
         </div>
         <button type="button" class="btn btn-default submit-btn" ng-click="$close(pic.url)">Submit</button>
     </form>

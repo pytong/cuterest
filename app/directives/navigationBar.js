@@ -1,5 +1,5 @@
-(function(app) {
-    app.directive("navigationBar", function() {
+((app) => {
+    app.directive("navigationBar", () => {
         return {
             restrict: "E",
             scope: {
