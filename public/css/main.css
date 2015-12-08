@@ -64,6 +64,10 @@ form {
 	margin: 10px 0;
 }
 
+.pic-preview {
+	max-width: 100%;
+}
+
 #addPicModal form {
 	margin-bottom: 30px;
 }

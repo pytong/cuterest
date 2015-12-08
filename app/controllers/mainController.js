@@ -11,6 +11,7 @@
         $scope.openAddPicModal = function() {
             $uibModal.open({
                 templateUrl: "/views/addPicModal.html",
+                controller: "AddPicModalController",
                 scope: $scope
             })
             .result.then(function(data) {

@@ -3,13 +3,13 @@
         <button type="button" class="close" ng-click="$dismiss()">&times;</button>
         <h4 class="modal-title">Add a Cute Animal Picture</h4>
     </div>
-    <div class="modal-body">
-        <div class="pic-preview"></div>
+    <div class="modal-body text-center">
+        <img class="pic-preview" src="{{ previewUrl }}"></img>
     </div>
 
     <form novalidate name="form" class="text-center" method="post">
         <div>
-            <input type="text" class="form-control text-center" placeholder="URL" ng-model="pic.url">
+            <input type="text" class="form-control text-center" placeholder="URL" ng-model="pic.url" ng-change="showPicPreview(pic.url)">
         </div>
         <button type="button" class="btn btn-default submit-btn" ng-click="$close(pic.url)">Submit</button>
     </form>
