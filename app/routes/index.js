@@ -18,7 +18,7 @@ module.exports = (app, passport) => {
 	app.route("/api/images")
 		.post((req, res) => {
 			if(!req.isAuthenticated()) {
-				return res.json({success: false, message: "You are not authenticated."});
+				return res.json({success: false, result: "You are not authenticated."});
 			}
 
 			let url = req.query.url;
