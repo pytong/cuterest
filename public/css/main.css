@@ -79,6 +79,35 @@ form {
 	width: 90%;
 }
 
+.grid-item {
+  float: left;
+  margin: 5px;
+  width: 20%;
+}
+
+.grid-item img {
+  width: 100%;
+}
+
+.image {
+	position: relative;
+}
+
+.delete-image {
+	position: absolute;
+	top: 0;
+	left: 10px;
+	opacity: 0.5;
+	font-weight: bold;
+	font-size: 20px;
+	color: red;
+	cursor: pointer;
+}
+
+.delete-image:hover{
+	opacity: 1;
+}
+
 .footer {
 	margin: 50px 0 50px 0;
 }

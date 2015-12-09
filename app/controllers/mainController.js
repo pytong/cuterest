@@ -7,6 +7,13 @@
             $scope.isLoggedIn = res.status;
         });
 
+        $(".grid").masonry({
+          columnWidth: 200,
+          itemSelector: ".grid-item",
+          gutter: 10,
+          isResizeBound: true
+        });
+
         $scope.openAddPicModal = () => {
             $scope.errorMessage = "";
 
@@ -23,7 +30,7 @@
                         if(res.success === false) {
                             $scope.errorMessage = res.result;
                         } else {
-                            console.log("Saved " + url);
+                            $scope.loadImages();
                         }
                     });
             }, (data) => {
@@ -31,6 +38,19 @@
                 $(".url-field").val("");
             });
         }
+
+        $scope.loadImages = () => {
+            ImageService.images()
+                .get({}, (res) => {
+                    if(res.status === false) {
+                        $scope.errorMessage = res.result;
+                    } else {
+                        $scope.images = res.result;
+                    }
+                });
+        }
+
+        $scope.loadImages();
 
     }]);
 })(app);

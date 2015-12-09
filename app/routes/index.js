@@ -16,6 +16,11 @@ module.exports = (app, passport) => {
 	});
 
 	app.route("/api/images")
+		.get((req, res) => {
+			imageUtil.getImages((success, result) => {
+				res.json({success: success, result: result});
+			});
+		})
 		.post((req, res) => {
 			if(!req.isAuthenticated()) {
 				return res.json({success: false, result: "You are not authenticated."});

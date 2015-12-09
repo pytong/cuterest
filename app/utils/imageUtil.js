@@ -8,7 +8,6 @@ module.exports = {
         let errorMessage = "Failed to add image. Please try again later.",
             image;
 
-        url = encodeURIComponent(url.toLowerCase());
         Image.findOne({url: url}, (err, result) => {
             if(err) { return callback(false, errorMessage); }
 
@@ -24,6 +23,14 @@ module.exports = {
             } else {
                 callback(false, "Image already exists.")
             }
+        });
+    },
+
+    getImages: (params, callback) => {
+        Image.find(params, (err, images) => {
+            if(err) { return callback(false, "Failed to get images."); }
+
+            callback(true, images);
         });
     }
 
