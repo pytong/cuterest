@@ -79,18 +79,9 @@ form {
 	width: 90%;
 }
 
-.grid-item {
-  float: left;
-  margin: 5px;
-  width: 20%;
-}
-
-.grid-item img {
-  width: 100%;
-}
-
-.image {
-	position: relative;
+.item img {
+	margin: 5px;
+  width: 270px;
 }
 
 .delete-image {

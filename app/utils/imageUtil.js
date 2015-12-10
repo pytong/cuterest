@@ -4,16 +4,17 @@ let Image = require("../models/images");
 
 module.exports = {
 
-    addImage: (url, callback) => {
+    addImage: (params, callback) => {
         let errorMessage = "Failed to add image. Please try again later.",
             image;
 
-        Image.findOne({url: url}, (err, result) => {
+        Image.findOne(params, (err, result) => {
             if(err) { return callback(false, errorMessage); }
 
             if(typeof(result) === "undefined" || result === null) {
                 image = new Image();
-                image.url = url;
+                image.url = params.url;
+                image.username = params.username;
 
                 image.save((err) => {
                    if(err) { return callback(false, errorMessage); }
@@ -23,6 +24,15 @@ module.exports = {
             } else {
                 callback(false, "Image already exists.")
             }
+        });
+    },
+
+    deleteImage: (params, callback) => {
+        console.log(params);
+        Image.remove(params, function(err, res) {
+            if(err) { return callback(false); }
+
+            callback(true);
         });
     },
 

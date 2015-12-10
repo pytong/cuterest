@@ -26,9 +26,28 @@ module.exports = (app, passport) => {
 				return res.json({success: false, result: "You are not authenticated."});
 			}
 
-			let url = req.query.url;
-			imageUtil.addImage(url, (success, result) => {
+			let url = req.query.url,
+				params = {url: url, username: req.username};
+
+			imageUtil.addImage(params, (success, result) => {
 				res.json({success: success, result: result});
+			});
+		})
+		.delete((req, res) => {
+			if(!req.isAuthenticated()) {
+				return res.json({success: false, result: "You are not authenticated."});
+			}
+
+			let id = req.query.id,
+				params;
+
+			if(!id) {
+				return res.json({success: false, message: "No image id was provided."});
+			}
+
+			params = {_id: id, username: req.username};
+			imageUtil.deleteImage(params, function(success) {
+				res.json({success: success});
 			});
 		});
 

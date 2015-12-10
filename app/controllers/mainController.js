@@ -7,12 +7,8 @@
             $scope.isLoggedIn = res.status;
         });
 
-        $(".grid").masonry({
-          columnWidth: 200,
-          itemSelector: ".grid-item",
-          gutter: 10,
-          isResizeBound: true
-        });
+        let container = $("#container"),
+            masonry_options = {columnWidth: ".item", itemSelector: ".item", isAnimated: true}
 
         $scope.openAddPicModal = () => {
             $scope.errorMessage = "";
@@ -45,7 +41,29 @@
                     if(res.status === false) {
                         $scope.errorMessage = res.result;
                     } else {
+                        let item;
                         $scope.images = res.result;
+
+                        $scope.images.forEach(function(image) {
+                            item = $('<div class="item"><img src=' + '"' + image.url + '"' + '/></div>');
+                            container.append(item);
+                            container.imagesLoaded(function(){
+                                container.masonry(masonry_options);
+                            });
+                        });
+                    }
+                });
+        }
+
+        $scope.deleteImage = (imageId) => {
+            $scope.errorMessage = "";
+
+            ImageService.images()
+                .delete({id: imageId}, (res) => {
+                    if(res.success === true) {
+                        $scope.loadImages();
+                    } else {
+                        $scope.errorMessage = "Failed to delete image. Please try again later."
                     }
                 });
         }

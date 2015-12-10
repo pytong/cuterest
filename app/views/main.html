@@ -7,10 +7,6 @@
 
     <div class="text-center error-message">{{ errorMessage }}</div>
 
-    <div class="grid">
-        <div class="grid-item image" ng-repeat="image in images">
-            <img ng-src="{{ image.url || 'https://placeholdit.imgix.net/~text?txtsize=9&txt=100%C3%97100&w=128&h=193' }}"/>
-            <span class="delete-image" ng-click="deleteImage(image._id)">x</span>
-        </div>
-    </div>
+    <div id="container"></div>
+
 </div>
