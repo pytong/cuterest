@@ -27,6 +27,8 @@
                             $scope.errorMessage = res.result;
                         } else {
                             let item = $('<div class="item"><img src=' + '"' + url + '"' + '/></div>');
+
+                            if($scope.images.length < 1) { $scope.initMasonry(); }
                             container.append(item).masonry("appended", item, true);
                         }
                     });
@@ -49,10 +51,8 @@
                             item = $('<div class="item"><img src=' + '"' + image.url + '"' + '/></div>');
                             container.append(item);
                         });
-                        container.imagesLoaded(function(){
-                            container.masonry(masonry_options);
-                        });
 
+                        if($scope.images.length > 0) { $scope.initMasonry(); }
                     }
                 });
         }
@@ -68,6 +68,12 @@
                         $scope.errorMessage = "Failed to delete image. Please try again later."
                     }
                 });
+        }
+
+        $scope.initMasonry = () => {
+            container.imagesLoaded(function(){
+                container.masonry(masonry_options);
+            });
         }
 
         $scope.loadImages();
