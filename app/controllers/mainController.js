@@ -8,7 +8,7 @@
         });
 
         let container = $("#container"),
-            masonry_options = {columnWidth: ".item", itemSelector: ".item", isAnimated: true}
+            masonry_options = {columnWidth: ".item", itemSelector: ".item", isAnimated: true};
 
         $scope.openAddPicModal = () => {
             $scope.errorMessage = "";
@@ -26,7 +26,8 @@
                         if(res.success === false) {
                             $scope.errorMessage = res.result;
                         } else {
-                            $scope.loadImages();
+                            let item = $('<div class="item"><img src=' + '"' + url + '"' + '/></div>');
+                            container.append(item).masonry("appended", item, true);
                         }
                     });
             }, (data) => {
@@ -47,10 +48,11 @@
                         $scope.images.forEach(function(image) {
                             item = $('<div class="item"><img src=' + '"' + image.url + '"' + '/></div>');
                             container.append(item);
-                            container.imagesLoaded(function(){
-                                container.masonry(masonry_options);
-                            });
                         });
+                        container.imagesLoaded(function(){
+                            container.masonry(masonry_options);
+                        });
+
                     }
                 });
         }
