@@ -9,6 +9,10 @@ app.config(($locationProvider, $routeProvider) => {
         controller: "MainController",
         templateUrl: "/views/main.html"
     })
+    .when("/users", {
+        controller: "MainController",
+        templateUrl: "/views/main.html"
+    })
     .when("/signin", {
         controller: "UserController",
         templateUrl: "/views/signin.html"

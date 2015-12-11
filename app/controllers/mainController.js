@@ -3,8 +3,13 @@
 ((app) => {
     app.controller("MainController", ["$scope", "$uibModal", "$compile", "UserService", "ImageService", ($scope, $uibModal, $compile, UserService, ImageService) => {
 
-        UserService.loginStatus().get(function(res) {
-            $scope.isLoggedIn = res.status;
+        UserService.profile().get(function(res) {
+            if(res.success === true) {
+                $scope.user = res.profile;
+                $scope.isLoggedIn = true;
+            } else {
+                $scope.isLoggedIn = false;
+            }
         });
 
         let container = $("#container"),
@@ -28,7 +33,8 @@
                         if(res.success === false) {
                             $scope.errorMessage = res.result;
                         } else {
-                            let item = $scope.createItem(url, uid);
+                            let username = $scope.user.username || $scope.user.twitter.username,
+                                item = $scope.createItem(url, uid, username);
                             container.prepend(item).masonry("prepended", item, true);
                         }
                     });
@@ -47,7 +53,7 @@
                         let item;
                         $scope.images = res.result;
                         $scope.images.forEach(function(image) {
-                            item = $scope.createItem(image.url, image.uid);
+                            item = $scope.createItem(image.url, image.uid, image.username);
                             container.prepend(item);
                         });
 
@@ -71,8 +77,8 @@
                 });
         }
 
-        $scope.createItem = (url, uid) => {
-            let item = $('<div class="item" id="' + uid + '"><img src=' + '"' + url + '"' + '/></div>');
+        $scope.createItem = (url, uid, username) => {
+            let item = $('<div class="item" id="' + uid + '"><img src=' + '"' + url + '"' + '/><div><a href="#/users/'  + username+ '">' + username + '</a></div></div>');
             item.append('<span class="delete-image" ng-show="isLoggedIn" ng-click="deleteImage(\'' + uid + '\')">x</span>');
             $compile(item)($scope);
 
