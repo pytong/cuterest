@@ -78,7 +78,7 @@
         }
 
         $scope.createItem = (url, uid, username) => {
-            let item = $('<div class="item" id="' + uid + '"><img src=' + '"' + url + '"' + '/><div><a href="#/users/'  + username+ '">' + username + '</a></div></div>');
+            let item = $('<div class="item" id="' + uid + '"><img src=' + '"' + url + '"' + '/><div><div class="username text-center"><a href="#/users/'  + username+ '">' + username + '</a></div></div></div>');
             item.append('<span class="delete-image" ng-show="currentUsername == \'' + username + '\'" ng-click="deleteImage(\'' + uid + '\')">x</span>');
             $compile(item)($scope);
 
