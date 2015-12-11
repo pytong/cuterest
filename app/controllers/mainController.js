@@ -1,7 +1,9 @@
 "use strict";
 
 ((app) => {
-    app.controller("MainController", ["$scope", "$uibModal", "$compile", "UserService", "ImageService", ($scope, $uibModal, $compile, UserService, ImageService) => {
+    app.controller("MainController", ["$scope", "$routeParams", "$uibModal", "$compile", "UserService", "ImageService", ($scope, $routeParams, $uibModal, $compile, UserService, ImageService) => {
+
+        $scope.targetUsername = $routeParams.username;
 
         UserService.profile().get(function(res) {
             if(res.success === true) {
@@ -45,8 +47,14 @@
         }
 
         $scope.loadImages = () => {
+            let params = {};
+
+            if($scope.targetUsername) {
+                params.username = $scope.targetUsername;
+            }
+
             ImageService.images()
-                .get({}, (res) => {
+                .get(params, (res) => {
                     if(res.status === false) {
                         $scope.errorMessage = res.result;
                     } else {
@@ -78,7 +86,7 @@
         }
 
         $scope.createItem = (url, uid, username) => {
-            let item = $('<div class="item" id="' + uid + '"><img src=' + '"' + url + '"' + '/><div><div class="username text-center"><a href="#/users/'  + username+ '">' + username + '</a></div></div></div>');
+            let item = $('<div class="item" id="' + uid + '"><img src=' + '"' + url + '"' + '/><div><div class="username text-center"><a href="#/?username='  + username+ '">' + username + '</a></div></div></div>');
             item.append('<span class="delete-image" ng-show="currentUsername == \'' + username + '\'" ng-click="deleteImage(\'' + uid + '\')">x</span>');
             $compile(item)($scope);
 

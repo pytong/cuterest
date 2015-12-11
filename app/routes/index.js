@@ -17,7 +17,14 @@ module.exports = (app, passport) => {
 
 	app.route("/api/images")
 		.get((req, res) => {
-			imageUtil.getImages((success, result) => {
+			let username =  req.query.username,
+				params = {};
+
+			if(username) {
+				params.username = username;
+			}
+
+			imageUtil.getImages(params, (success, result) => {
 				res.json({success: success, result: result});
 			});
 		})

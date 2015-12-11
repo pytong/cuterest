@@ -79,12 +79,18 @@ form {
 	width: 90%;
 }
 
-.add-pic, .please-sign-in {
+.header {
+	margin: 10px 8px;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.back-to-home, .add-pic, .please-sign-in {
 	margin: 0 8px;
 }
 
 .please-sign-in, .error-message {
-	font-size: 16px;
+	font-size: 18px;
 }
 
 .item img {
@@ -106,7 +112,7 @@ form {
 	left: 10px;
 	opacity: 0.5;
 	font-weight: bold;
-	font-size: 20px;
+	font-size: 26px;
 	color: red;
 	cursor: pointer;
 }

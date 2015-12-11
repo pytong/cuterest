@@ -4,9 +4,14 @@
 
     <!-- Trigger the modal with a button -->
     <button type="button" class="add-pic btn btn-info btn-lg" ng-show="isLoggedIn" ng-click="openAddPicModal()">Add a Cute Animal Pic</button>
+    <a class="btn btn-default btn-lg back-to-home" href="#/">Back to Home</a>
+
     <span class="label label-info please-sign-in" ng-show="!isLoggedIn">Please sign in to add images.</span>
 
     <span class="label label-danger error-message">{{ errorMessage }}</span>
+
+    <div class="header" ng-show="targetUsername !== undefined && targetUsername !== currentUsername">{{ targetUsername }}'s Profile</div>
+    <div class="header" ng-show="targetUsername !== undefined && targetUsername === currentUsername">My Profile</div>
 
     <div id="container"></div>
 
