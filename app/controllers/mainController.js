@@ -7,6 +7,7 @@
             if(res.success === true) {
                 $scope.user = res.profile;
                 $scope.isLoggedIn = true;
+                $scope.currentUsername = $scope.user.username || $scope.user.twitter.username;
             } else {
                 $scope.isLoggedIn = false;
             }
@@ -33,8 +34,7 @@
                         if(res.success === false) {
                             $scope.errorMessage = res.result;
                         } else {
-                            let username = $scope.user.username || $scope.user.twitter.username,
-                                item = $scope.createItem(url, uid, username);
+                            let item = $scope.createItem(url, uid, $scope.currentUsername);
                             container.prepend(item).masonry("prepended", item, true);
                         }
                     });
@@ -79,7 +79,7 @@
 
         $scope.createItem = (url, uid, username) => {
             let item = $('<div class="item" id="' + uid + '"><img src=' + '"' + url + '"' + '/><div><a href="#/users/'  + username+ '">' + username + '</a></div></div>');
-            item.append('<span class="delete-image" ng-show="isLoggedIn" ng-click="deleteImage(\'' + uid + '\')">x</span>');
+            item.append('<span class="delete-image" ng-show="currentUsername == \'' + username + '\'" ng-click="deleteImage(\'' + uid + '\')">x</span>');
             $compile(item)($scope);
 
             return item;
