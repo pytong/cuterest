@@ -73,7 +73,7 @@
 
         $scope.createItem = (url, uid) => {
             let item = $('<div class="item" id="' + uid + '"><img src=' + '"' + url + '"' + '/></div>');
-            item.append('<span class="delete-image" ng-click="deleteImage(\'' + uid + '\')">x</span>');
+            item.append('<span class="delete-image" ng-show="isLoggedIn" ng-click="deleteImage(\'' + uid + '\')">x</span>');
             $compile(item)($scope);
 
             return item;
