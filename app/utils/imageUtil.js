@@ -8,12 +8,13 @@ module.exports = {
         let errorMessage = "Failed to add image. Please try again later.",
             image;
 
-        Image.findOne(params, (err, result) => {
+        Image.findOne({url: params.url, username: params.username}, (err, result) => {
             if(err) { return callback(false, errorMessage); }
 
             if(typeof(result) === "undefined" || result === null) {
                 image = new Image();
                 image.url = params.url;
+                image.uid = params.uid;
                 image.username = params.username;
 
                 image.save((err) => {
@@ -28,10 +29,8 @@ module.exports = {
     },
 
     deleteImage: (params, callback) => {
-        console.log(params);
         Image.remove(params, function(err, res) {
             if(err) { return callback(false); }
-
             callback(true);
         });
     },

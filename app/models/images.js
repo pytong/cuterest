@@ -4,6 +4,7 @@ let mongoose = require("mongoose"),
 	Schema = mongoose.Schema,
 
 	Image = new Schema({
+		uid: String,
 		url: String,
 		username: String
 	});

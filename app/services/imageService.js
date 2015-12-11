@@ -5,7 +5,7 @@
         let appUrl = $location.protocol() + "://" + $location.host();
 
         this.images = function() {
-            return $resource(appUrl + "/api/images?url=:url", {url: "@url"});
+            return $resource(appUrl + "/api/images?url=:url&uid=:uid", {url: "@url", uid: "@uid"});
         }
 
     }]);

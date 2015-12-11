@@ -1,7 +1,7 @@
 "use strict";
 
 ((app) => {
-    app.controller("MainController", ["$scope", "$uibModal", "UserService", "ImageService", ($scope, $uibModal, UserService, ImageService) => {
+    app.controller("MainController", ["$scope", "$uibModal", "$compile", "UserService", "ImageService", ($scope, $uibModal, $compile, UserService, ImageService) => {
 
         UserService.loginStatus().get(function(res) {
             $scope.isLoggedIn = res.status;
@@ -20,16 +20,16 @@
             })
             .result.then((url) => {
                 // submit
+                let uid = $scope.generateRandomUid();
                 ImageService.images()
-                    .save({url: url}, (res) => {
+                    .save({url: url, uid: uid}, (res) => {
                         $(".url-field").val("");
+
                         if(res.success === false) {
                             $scope.errorMessage = res.result;
                         } else {
-                            let item = $('<div class="item"><img src=' + '"' + url + '"' + '/></div>');
-
-                            if($scope.images.length < 1) { $scope.initMasonry(); }
-                            container.append(item).masonry("appended", item, true);
+                            let item = $scope.createItem(url, uid);
+                            container.prepend(item).masonry("prepended", item, true);
                         }
                     });
             }, (data) => {
@@ -46,34 +46,54 @@
                     } else {
                         let item;
                         $scope.images = res.result;
-
                         $scope.images.forEach(function(image) {
-                            item = $('<div class="item"><img src=' + '"' + image.url + '"' + '/></div>');
-                            container.append(item);
+                            item = $scope.createItem(image.url, image.uid);
+                            container.prepend(item);
                         });
 
-                        if($scope.images.length > 0) { $scope.initMasonry(); }
+                        $scope.initMasonry();
                     }
                 });
         }
 
-        $scope.deleteImage = (imageId) => {
+        $scope.deleteImage = (uid) => {
             $scope.errorMessage = "";
 
             ImageService.images()
-                .delete({id: imageId}, (res) => {
+                .delete({uid: uid}, (res) => {
                     if(res.success === true) {
-                        $scope.loadImages();
+                        let item = $("#" + uid);
+                        container.masonry("remove", item);
+                        container.masonry();
                     } else {
-                        $scope.errorMessage = "Failed to delete image. Please try again later."
+                        $scope.errorMessage = res.result;
                     }
                 });
+        }
+
+        $scope.createItem = (url, uid) => {
+            let item = $('<div class="item" id="' + uid + '"><img src=' + '"' + url + '"' + '/></div>');
+            item.append('<span class="delete-image" ng-click="deleteImage(\'' + uid + '\')">x</span>');
+            $compile(item)($scope);
+
+            return item;
         }
 
         $scope.initMasonry = () => {
             container.imagesLoaded(function(){
                 container.masonry(masonry_options);
             });
+        }
+
+        $scope.generateRandomUid = () => {
+            let uid = "",
+                possibleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+            for(let i=0; i < 6; i++) {
+                uid += possibleChars.charAt(Math.floor(Math.random() * possibleChars.length));
+            }
+
+            return uid;
         }
 
         $scope.loadImages();

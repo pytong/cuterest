@@ -3,9 +3,10 @@
     <div class="text-center"><img src="/public/img/Cuterest-logo.png" /></div>
 
     <!-- Trigger the modal with a button -->
-    <button type="button" class="btn btn-info btn-lg" ng-show="isLoggedIn" ng-click="openAddPicModal()">Add a Cute Animal Pic</button>
+    <button type="button" class="add-pic btn btn-info btn-lg" ng-show="isLoggedIn" ng-click="openAddPicModal()">Add a Cute Animal Pic</button>
+    <span class="label label-info please-sign-in" ng-show="!isLoggedIn">Please sign in to add images.</span>
 
-    <div class="text-center error-message">{{ errorMessage }}</div>
+    <span class="label label-danger error-message">{{ errorMessage }}</span>
 
     <div id="container"></div>
 

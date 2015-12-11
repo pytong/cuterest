@@ -79,6 +79,14 @@ form {
 	width: 90%;
 }
 
+.add-pic, .please-sign-in {
+	margin: 0 8px;
+}
+
+.please-sign-in, .error-message {
+	font-size: 16px;
+}
+
 .item img {
 	margin: 5px;
 	border-radius: 5px;

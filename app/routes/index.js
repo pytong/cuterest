@@ -27,7 +27,8 @@ module.exports = (app, passport) => {
 			}
 
 			let url = req.query.url,
-				params = {url: url, username: req.username};
+				uid = req.query.uid,
+				params = {url: url, uid: uid, username: req.username};
 
 			imageUtil.addImage(params, (success, result) => {
 				res.json({success: success, result: result});
@@ -38,14 +39,14 @@ module.exports = (app, passport) => {
 				return res.json({success: false, result: "You are not authenticated."});
 			}
 
-			let id = req.query.id,
+			let uid = req.query.uid,
 				params;
 
-			if(!id) {
-				return res.json({success: false, message: "No image id was provided."});
+			if(!uid) {
+				return res.json({success: false, message: "No image uid was provided."});
 			}
 
-			params = {_id: id, username: req.username};
+			params = {uid: uid, username: req.username};
 			imageUtil.deleteImage(params, function(success) {
 				res.json({success: success});
 			});
