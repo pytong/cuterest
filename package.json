@@ -1,7 +1,7 @@
 {
   "name": "Cuterest",
   "version": "1.0.1",
-  "description": "This application allows you to add cute animals images",
+  "description": "This application allows you to add cute animal images",
   "main": "server.js",
   "repository": {
     "type": "git",
