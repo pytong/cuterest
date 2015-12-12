@@ -45,9 +45,6 @@
                         } else {
                             let item = $scope.createItem(url, uid, $scope.currentUsername);
                             container.prepend(item).masonry("prepended", item, true);
-                            $scope.fixBrokenImages();
-                            // container.masonry("reloadItems");
-                            // container.masonry();
                         }
                     });
             }, (data) => {
@@ -76,8 +73,6 @@
                             container.prepend(item);
                         });
                         $scope.initMasonry();
-                        $scope.fixBrokenImages();
-                        container.masonry();
                     }
                 });
         }
@@ -114,13 +109,6 @@
             }
 
             return uid;
-        }
-
-        $scope.fixBrokenImages = () => {
-            $(".item img").error(function(event) {
-                let image = $(event.target);
-                image.attr("src", "/public/img/missing-image.png");
-            });
         }
 
         $scope.loadImages();
