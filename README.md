@@ -43,7 +43,7 @@ Create a file named `.env` in the root directory. This file should contain:
 TWITTER_KEY=your-twitter-key-here
 TWITTER_SECRET=your-twitter-secret-here
 MONGO_URI=mongodb://localhost:27017/cuterest
-APP_URL=https://book-trading-club-pytong.c9.io/
+APP_URL=https://cuterest-pytong.c9.io/
 PORT=8080
 ```
 
