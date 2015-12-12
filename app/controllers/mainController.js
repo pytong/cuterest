@@ -5,6 +5,8 @@
 
         $scope.targetUsername = $routeParams.username;
 
+        let container = $("#container");
+
         UserService.profile().get(function(res) {
             if(res.success === true) {
                 $scope.user = res.profile;
@@ -15,8 +17,13 @@
             }
         });
 
-        let container = $("#container"),
-            masonry_options = {columnWidth: ".item", itemSelector: ".item", isAnimated: true};
+        $scope.initMasonry = () => {
+            let masonry_options = {columnWidth: ".item", itemSelector: ".item", isAnimated: true};
+            container.imagesLoaded(function(){
+                container.masonry(masonry_options);
+            });
+        }
+
 
         $scope.openAddPicModal = () => {
             $scope.errorMessage = "";
@@ -38,6 +45,9 @@
                         } else {
                             let item = $scope.createItem(url, uid, $scope.currentUsername);
                             container.prepend(item).masonry("prepended", item, true);
+                            $scope.fixBrokenImages();
+                            // container.masonry("reloadItems");
+                            // container.masonry();
                         }
                     });
             }, (data) => {
@@ -59,13 +69,15 @@
                         $scope.errorMessage = res.result;
                     } else {
                         let item;
-                        $scope.images = res.result;
+                        $scope.images = res.result
+
                         $scope.images.forEach(function(image) {
                             item = $scope.createItem(image.url, image.uid, image.username);
                             container.prepend(item);
                         });
-
                         $scope.initMasonry();
+                        $scope.fixBrokenImages();
+                        container.masonry();
                     }
                 });
         }
@@ -93,12 +105,6 @@
             return item;
         }
 
-        $scope.initMasonry = () => {
-            container.imagesLoaded(function(){
-                container.masonry(masonry_options);
-            });
-        }
-
         $scope.generateRandomUid = () => {
             let uid = "",
                 possibleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -108,6 +114,13 @@
             }
 
             return uid;
+        }
+
+        $scope.fixBrokenImages = () => {
+            $(".item img").error(function(event) {
+                let image = $(event.target);
+                image.attr("src", "/public/img/missing-image.png");
+            });
         }
 
         $scope.loadImages();
