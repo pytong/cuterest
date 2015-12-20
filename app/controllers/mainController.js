@@ -5,7 +5,7 @@
 
         $scope.targetUsername = $routeParams.username;
 
-        let container = $("#container");
+        var container = $("#container");
 
         UserService.profile().get(function(res) {
             if(res.success === true) {
@@ -18,7 +18,7 @@
         });
 
         $scope.initMasonry = () => {
-            let masonry_options = {columnWidth: ".item", itemSelector: ".item", isAnimated: true};
+            var masonry_options = {columnWidth: ".item", itemSelector: ".item", isAnimated: true};
             container.imagesLoaded(function(){
                 container.masonry(masonry_options);
             });
@@ -35,7 +35,7 @@
             })
             .result.then((url) => {
                 // submit
-                let uid = $scope.generateRandomUid();
+                var uid = $scope.generateRandomUid();
                 ImageService.images()
                     .save({url: url, uid: uid}, (res) => {
                         $(".url-field").val("");
@@ -43,7 +43,7 @@
                         if(res.success === false) {
                             $scope.errorMessage = res.result;
                         } else {
-                            let item = $scope.createItem(url, uid, $scope.currentUsername);
+                            var item = $scope.createItem(url, uid, $scope.currentUsername);
                             container.prepend(item).masonry("prepended", item, true);
                         }
                     });
@@ -54,7 +54,7 @@
         }
 
         $scope.loadImages = () => {
-            let params = {};
+            var params = {};
 
             if($scope.targetUsername) {
                 params.username = $scope.targetUsername;
@@ -65,7 +65,7 @@
                     if(res.status === false) {
                         $scope.errorMessage = res.result;
                     } else {
-                        let item;
+                        var item;
                         $scope.images = res.result
 
                         $scope.images.forEach(function(image) {
@@ -83,7 +83,7 @@
             ImageService.images()
                 .delete({uid: uid}, (res) => {
                     if(res.success === true) {
-                        let item = $("#" + uid);
+                        var item = $("#" + uid);
                         container.masonry("remove", item);
                         container.masonry();
                     } else {
@@ -93,7 +93,7 @@
         }
 
         $scope.createItem = (url, uid, username) => {
-            let item = $('<div class="item" id="' + uid + '"><img src=' + '"' + url + '"' + '/><div><div class="username text-center"><a href="#/?username='  + username+ '">' + username + '</a></div></div></div>');
+            var item = $('<div class="item" id="' + uid + '"><img src=' + '"' + url + '"' + '/><div><div class="username text-center"><a href="#/?username='  + username+ '">' + username + '</a></div></div></div>');
             item.append('<span class="delete-image" ng-show="currentUsername == \'' + username + '\'" ng-click="deleteImage(\'' + uid + '\')">x</span>');
             $compile(item)($scope);
 
@@ -101,10 +101,10 @@
         }
 
         $scope.generateRandomUid = () => {
-            let uid = "",
+            var uid = "",
                 possibleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-            for(let i=0; i < 6; i++) {
+            for(var i=0; i < 6; i++) {
                 uid += possibleChars.charAt(Math.floor(Math.random() * possibleChars.length));
             }
 

@@ -12,7 +12,7 @@
         });
 
         $scope.updateProfile = () => {
-            let name = $scope.user.name,
+            var name = $scope.user.name,
                 city = $scope.user.city,
                 state = $scope.user.state;
 

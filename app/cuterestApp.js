@@ -1,6 +1,6 @@
 "use strict";
 
-let app = angular.module("CuterestApp", ["ngResource", "ngRoute", "ui.bootstrap"]);
+var app = angular.module("CuterestApp", ["ngResource", "ngRoute", "ui.bootstrap"]);
 
 app.config(($locationProvider, $routeProvider) => {
 
